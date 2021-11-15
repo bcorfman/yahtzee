@@ -1,6 +1,7 @@
 .failed-tests/
 .idea/
 .vscode/
+.yarn
 coverage/
 node_modules/
 .node_modules/
