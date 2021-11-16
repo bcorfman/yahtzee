@@ -17,7 +17,7 @@ class Counter
 
 const range = (start: number, end: number) => Array.from({length: (end - start)}, (v, k) => k + start);
 
-function _top(num: number, lst: Array<number>) : Array<number> {
+function _first(num: number, lst: Array<number>) : Array<number> {
     let result = Array<number>(num);
     if (lst.length >= num) {
         result = lst.slice(0, num);
@@ -28,7 +28,7 @@ function _top(num: number, lst: Array<number>) : Array<number> {
     return result;
 }
 
-function _highest_matching_groups(num_matching: number, dice: Array<number>) : Array<number> {
+function _highest_matches_of(num_matching: number, dice: Array<number>) : Array<number> {
     let score_matching = Array<number>();
     let counter = new Counter(dice);
     for (let [k, v] of counter.map) {
@@ -39,7 +39,7 @@ function _highest_matching_groups(num_matching: number, dice: Array<number>) : A
     return score_matching.sort().reverse()
 }
 
-function _straight(starting_number: number, dice: Array<number>) : number {
+function _sequence_beginning_with(starting_number: number, dice: Array<number>) : number {
     let sorted_dice = dice.sort();
     let straight = range(starting_number, starting_number+5);
     let sum = 0;
@@ -62,38 +62,38 @@ export function same_number(num: number, dice: Array<number>): number {
 
 
 export function pair(dice: Array<number>): number {
-    return _top(1, _highest_matching_groups(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 
 export function two_pair(dice: Array<number>): number {
-    return _top(2, _highest_matching_groups(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first(2, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function three_of_a_kind(dice: Array<number>): number {
-    return _top(1, _highest_matching_groups(3, dice)).reduce((sum, die) => sum + die, 0);
+    return _first(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function four_of_a_kind(dice: Array<number>): number {
-    return _top(1, _highest_matching_groups(4, dice)).reduce((sum, die) => sum + die, 0);
+    return _first(1, _highest_matches_of(4, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function small_straight(dice: Array<number>): number {
-    return _straight(1, dice);
+    return _sequence_beginning_with(1, dice);
 }
 
 export function large_straight(dice: Array<number>): number {
-    return _straight(2, dice);
+    return _sequence_beginning_with(2, dice);
 }
 
 export function full_house(dice: Array<number>): number {
-    return _top(1, _highest_matching_groups(3, dice)).reduce((sum, die) => sum + die, 0) + 
-           _top(1, _highest_matching_groups(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0) + 
+           _first(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function yahtzee(dice: Array<number>): number {
     let result = 0;
-    if (_top(1, _highest_matching_groups(5, dice)).reduce((sum, die) => sum + die, 0))
+    if (_first(1, _highest_matches_of(5, dice)).reduce((sum, die) => sum + die, 0))
         result = 50;
     return result;
 }
