@@ -17,7 +17,7 @@ class Counter
 
 const range = (start: number, end: number) => Array.from({length: (end - start)}, (v, k) => k + start);
 
-function _first(num: number, lst: Array<number>) : Array<number> {
+function _first_of(num: number, lst: Array<number>) : Array<number> {
     let result = Array<number>(num);
     if (lst.length >= num) {
         result = lst.slice(0, num);
@@ -62,20 +62,20 @@ export function same_number(num: number, dice: Array<number>): number {
 
 
 export function pair(dice: Array<number>): number {
-    return _first(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first_of(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 
 export function two_pair(dice: Array<number>): number {
-    return _first(2, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first_of(2, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function three_of_a_kind(dice: Array<number>): number {
-    return _first(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0);
+    return _first_of(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function four_of_a_kind(dice: Array<number>): number {
-    return _first(1, _highest_matches_of(4, dice)).reduce((sum, die) => sum + die, 0);
+    return _first_of(1, _highest_matches_of(4, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function small_straight(dice: Array<number>): number {
@@ -87,13 +87,13 @@ export function large_straight(dice: Array<number>): number {
 }
 
 export function full_house(dice: Array<number>): number {
-    return _first(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0) + 
-           _first(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
+    return _first_of(1, _highest_matches_of(3, dice)).reduce((sum, die) => sum + die, 0) + 
+           _first_of(1, _highest_matches_of(2, dice)).reduce((sum, die) => sum + die, 0);
 }
 
 export function yahtzee(dice: Array<number>): number {
     let result = 0;
-    if (_first(1, _highest_matches_of(5, dice)).reduce((sum, die) => sum + die, 0))
+    if (_first_of(1, _highest_matches_of(5, dice)).reduce((sum, die) => sum + die, 0))
         result = 50;
     return result;
 }
